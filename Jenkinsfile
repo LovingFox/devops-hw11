@@ -8,7 +8,7 @@ pipeline {
             image "nexus.rtru.tk:8123/hw11-builder:${params.Version}"
             registryUrl 'https://nexus.rtru.tk:8123/'
             registryCredentialsId '678de0e5-da9b-4305-bcf5-1f10f46f8246'
-            args '-v /var/run/docker.sock:/var/run/docker.sock --group-add $(cat /tmp/group)'
+            args '-v /var/run/docker.sock:/var/run/docker.sock --group-add 120'
         }
     }
 
