@@ -8,8 +8,10 @@ pipeline {
 
     stages {
         stage('Get docker socket group') {
-            script {
-                DOCKER_GROUP = sh(returnStdout: true, script: 'stat -c %g /var/run/docker.sock').trim()
+            steps {
+                script {
+                    DOCKER_GROUP = sh(returnStdout: true, script: 'stat -c %g /var/run/docker.sock').trim()
+                }
             }
         }
         stage('Fetch build push and local remove') {
