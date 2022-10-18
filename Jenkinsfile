@@ -14,7 +14,7 @@ pipeline {
                 }
             }
         }
-        stage('Fetch build push and local remove') {
+        stage('Fetch, build, push and local remove') {
             agent {
                 docker {
                     image "nexus.rtru.tk:8123/hw11-builder:${params.Version}"
