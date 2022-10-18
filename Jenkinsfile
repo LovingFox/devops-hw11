@@ -2,6 +2,7 @@ pipeline {
     agent {
         docker {
             image 'nexus.rtru.tk:8123/hw11-builder:1.0'
+            reuseNode true
             args '-v /var/run/docker.sock:/var/run/docker.sock --group-add 120'
         }
     }
