@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        DOCKER_GROUP = "\$(stat -c '%g' /var/run/docker.sock)"
+        DOCKER_GROUP = '120'
     }
     parameters {
         string(name: "Version", defaultValue: "1.0")
