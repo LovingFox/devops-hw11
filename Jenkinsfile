@@ -1,22 +1,25 @@
 pipeline {
-    environment {
-        DOCKER_GROUP = '120'
-    }
     parameters {
         string(name: "Version", defaultValue: "1.0")
         string(name: "Template", defaultValue: "1.0")
     }
-    agent {
-        docker {
-            image "nexus.rtru.tk:8123/hw11-builder:${params.Version}"
-            registryUrl 'https://nexus.rtru.tk:8123/'
-            registryCredentialsId '678de0e5-da9b-4305-bcf5-1f10f46f8246'
-            args "-v /var/run/docker.sock:/var/run/docker.sock --group-add ${DOCKER_GROUP}"
-        }
+
+    environment {
+        DOCKER_GROUP = 120
     }
+
+    agent any
 
     stages {
         stage('Fetch and build') {
+            agent {
+                docker {
+                    image "nexus.rtru.tk:8123/hw11-builder:${params.Version}"
+                    registryUrl 'https://nexus.rtru.tk:8123/'
+                    registryCredentialsId '678de0e5-da9b-4305-bcf5-1f10f46f8246'
+                    args "-v /var/run/docker.sock:/var/run/docker.sock --group-add ${DOCKER_GROUP}"
+                }
+            }
             steps {
                 git 'https://github.com/LovingFox/boxfuse-sample-java-war-hello.git'
                 sh "mvn package"
