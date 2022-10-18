@@ -2,7 +2,8 @@ pipeline {
     agent {
         docker {
             image 'nexus.rtru.tk:8123/hw11-builder:1.0'
-            registryCredentialsId '4bc15901-bd55-4538-94c0-b58ff1de973c'
+            registryUrl 'https://nexus.rtru.tk/'
+            registryCredentialsId '678de0e5-da9b-4305-bcf5-1f10f46f8246'
             args '-v /var/run/docker.sock:/var/run/docker.sock --group-add 120'
         }
     }
