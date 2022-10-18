@@ -11,7 +11,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Fetch and build') {
+        stage('Fetch build push and local remove') {
             agent {
                 docker {
                     image "nexus.rtru.tk:8123/hw11-builder:${params.Version}"
@@ -27,11 +27,6 @@ pipeline {
                 sh "echo FROM nexus.rtru.tk:8123/hw11-app-template:${params.Template} > Dockerfile"
                 sh "echo COPY ./target/*.war /opt/tomcat/webapps/ROOT.war >> Dockerfile"
                 sh "docker build -t nexus.rtru.tk:8123/hw11-app:${params.Version} ."
-            }
-        }
-
-        stage('Push and local remove') {
-            steps {
                 sh "docker push nexus.rtru.tk:8123/hw11-app:${params.Version}"
                 sh "docker rmi nexus.rtru.tk:8123/hw11-app:${params.Version}"
             }
