@@ -25,7 +25,7 @@ pipeline {
                 git 'https://github.com/LovingFox/boxfuse-sample-java-war-hello.git'
                 sh "mvn package"
                 sh "echo FROM nexus.rtru.tk:8123/hw11-app-template:${params.Template} > Dockerfile"
-                sh "echo CMD rm -rf /webapps/ROOT* >> Dockerfile"
+                sh "echo RUN rm -rf /webapps/ROOT* >> Dockerfile"
                 sh "echo COPY ./target/*.war /opt/tomcat/webapps/ROOT.war >> Dockerfile"
                 sh "docker build -t nexus.rtru.tk:8123/hw11-app:${params.Version} ."
                 sh "docker push nexus.rtru.tk:8123/hw11-app:${params.Version}"
