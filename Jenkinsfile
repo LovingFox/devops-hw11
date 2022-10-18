@@ -33,7 +33,6 @@ pipeline {
         stage('Deploy at devops5') {
             node {
                 docker.image('node').inside('-v /etc/passwd:/etc/passwd') {
-                    stage('SSH') {
                         sshagent(['77e6ac01-81f8-45ac-9b89-d91f5dbdd25f']) {
                             sh 'ssh -o StrictHostKeyChecking=no -l root devops5 \'for ID in $(docker ps -q); do docker stop $ID; done\''
                             sh 'ssh -o StrictHostKeyChecking=no -l root devops5 \'for ID in $(docker ps -a -q); do docker rm $ID; done\''
@@ -41,7 +40,6 @@ pipeline {
                             sh "ssh -o StrictHostKeyChecking=no -l root devops5 docker pull nexus.rtru.tk:8123/hw11-app:${params.Version}"
                             sh "ssh -o StrictHostKeyChecking=no -l root devops5 docker run -p 80:8080 -d --name hw11 nexus.rtru.tk:8123/hw11:${params.Version}"
                         }
-                    }
                 }
             }
         }
