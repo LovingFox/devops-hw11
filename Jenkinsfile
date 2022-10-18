@@ -4,18 +4,18 @@ pipeline {
         string(name: "Template", defaultValue: "1.0")
     }
 
-    environment {
-        DOCKER_GROUP = 120
-    }
-
     agent any
 
     stages {
+        stage('Get docker socket group') {
+            script {
+                DOCKER_GROUP = sh(returnStdout: true, script: 'stat -c %g /var/run/docker.sock').trim()
+            }
+        }
         stage('Fetch build push and local remove') {
             agent {
                 docker {
                     image "nexus.rtru.tk:8123/hw11-builder:${params.Version}"
-                    reuseNode true
                     registryUrl 'https://nexus.rtru.tk:8123/'
                     registryCredentialsId '678de0e5-da9b-4305-bcf5-1f10f46f8246'
                     args "-v /var/run/docker.sock:/var/run/docker.sock --group-add ${DOCKER_GROUP}"
