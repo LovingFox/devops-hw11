@@ -9,7 +9,7 @@ pipeline {
     }
 
     stages {
-        stage('Fetch and build') {
+        stage('Fetch, build and push') {
             steps {
                 git 'https://github.com/LovingFox/boxfuse-sample-java-war-hello.git'
                 sh "mvn package"
@@ -19,6 +19,7 @@ pipeline {
                 sh "echo COPY ./target/*.war /opt/tomcat/webapps/ROOT.war >> Dockerfile"
                 sh "echo CMD ['/opt/tomcat/bin/catalina.sh', 'run'] >> Dockerfile"
                 sh "docker build -t nexus.rtru.tk:8123/hw11-app:1.0 ."
+                sh "docker push nexus.rtru.tk:8123/hw11-app:1.0"
             }
         }
     }
