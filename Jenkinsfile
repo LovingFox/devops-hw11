@@ -39,7 +39,7 @@ pipeline {
                     sh 'ssh -o StrictHostKeyChecking=no -l root devops5 \'for ID in $(docker ps -a -q); do docker rm $ID; done\''
                     sh 'ssh -o StrictHostKeyChecking=no -l root devops5 \'for ID in $(docker images -q); do docker rmi $ID; done\''
                     sh "ssh -o StrictHostKeyChecking=no -l root devops5 docker pull nexus.rtru.tk:8123/hw11-app:${params.Version}"
-                    sh "ssh -o StrictHostKeyChecking=no -l root devops5 docker run -p 80:8080 -d --name hw11 nexus.rtru.tk:8123/hw11:${params.Version}"
+                    sh "ssh -o StrictHostKeyChecking=no -l root devops5 docker run -p 80:8080 -d --name hw11 nexus.rtru.tk:8123/hw11-app:${params.Version}"
                 }
             }
         }
