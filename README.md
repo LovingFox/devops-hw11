@@ -5,7 +5,8 @@
 The pipeline by Jenkins for a Tomcat application.
 
 Tomcat application based on the test project:
-*[https://github.com/LovingFox/boxfuse-sample-java-war-hello.git](https://github.com/LovingFox/boxfuse-sample-java-war-hello.git)
+
+[https://github.com/LovingFox/boxfuse-sample-java-war-hello.git](https://github.com/LovingFox/boxfuse-sample-java-war-hello.git)
 
 ##### Files
 
