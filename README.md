@@ -9,15 +9,15 @@ Tomcat application based on the test project:
 
 ##### Files
 
-1. Jenkinsfile (pipeline)
-2. Dockerfile.builder (building container)
-3. Dockerfile.app-template (template container for application ready)
+1. *Jenkinsfile* (pipeline)
+2. *Dockerfile.builder* (building container)
+3. *Dockerfile.app-template* (template container for application ready)
 
 ##### Prepare images
 
-1. make a builder image by Dockerfile.builder
+1. make a builder image by *Dockerfile.builder*
 2. push the builder image to the Register (`nexus.rtru.tk:8123/hw11-builder:1.0`)
-3. make an app-template image by Dockerfile.app-template
+3. make an app-template image by *Dockerfile.app-template*
 4. push the app-template image to the Register (`nexus.rtru.tk:8123/hw11-app-template:1.0`)
 
 ##### Steps of the Jenkins pipeline
