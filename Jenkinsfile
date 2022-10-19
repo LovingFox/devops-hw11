@@ -1,8 +1,8 @@
 pipeline {
     parameters {
         string(name: "appVersion", defaultValue: "1.0")
-        choice(name: "builderVersion", choices: ["1.0"], defaultValue: "1.0", description: "Builder version")
-        choice(name: "appTemplateVersion", choices: ["1.0"], defaultValue: "1.0", description: "Application template")
+        choice(name: "builderVersion", choices: ["1.0"], description: "Builder version")
+        choice(name: "appTemplateVersion", choices: ["1.0"], description: "Application template")
     }
 
     agent any
