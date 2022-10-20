@@ -35,7 +35,11 @@ pipeline {
                 sh "docker rmi nexus.rtru.tk:8123/hw11-app:${params.appVersion}"
             }
         }
-
+        stage('Clean after build') {
+            steps {
+                cleanWs()
+            }
+        }
         stage('Deploy at devops5') {
             steps {
                 sshagent(['77e6ac01-81f8-45ac-9b89-d91f5dbdd25f']) {
