@@ -35,11 +35,6 @@ pipeline {
                 sh "docker rmi nexus.rtru.tk:8123/hw11-app:${params.appVersion}"
             }
         }
-        stage('Clean after build') {
-            steps {
-                cleanWs()
-            }
-        }
         stage('Deploy at devops5') {
             steps {
                 sshagent(['77e6ac01-81f8-45ac-9b89-d91f5dbdd25f']) {
@@ -50,6 +45,11 @@ pipeline {
                     sh "ssh -o StrictHostKeyChecking=no -l root devops5 docker run -p 80:8080 -d --name hw11 nexus.rtru.tk:8123/hw11-app:${params.appVersion}"
                 }
             }
+        }
+    }
+    post {
+        always {
+            cleanWs()
         }
     }
 }
