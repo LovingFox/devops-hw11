@@ -8,6 +8,19 @@ pipeline {
     agent any
 
     stages {
+        stage('Fetch and maven build') {
+            agent {
+                docker {
+                    image "nexus.rtru.tk:8123/hw11-builder:${params.builderVersion}"
+                    registryUrl 'https://nexus.rtru.tk:8123/'
+                    registryCredentialsId '678de0e5-da9b-4305-bcf5-1f10f46f8246'
+                }
+            }
+            steps {
+                git 'https://github.com/LovingFox/boxfuse-sample-java-war-hello.git'
+                sh "mvn clean package"
+            }
+        }
         stage('Get docker socket group') {
             steps {
                 script {
@@ -15,7 +28,7 @@ pipeline {
                 }
             }
         }
-        stage('Fetch, build, push and local remove') {
+        stage('Docker build, push and local remove') {
             agent {
                 docker {
                     image "nexus.rtru.tk:8123/hw11-builder:${params.builderVersion}"
@@ -25,8 +38,6 @@ pipeline {
                 }
             }
             steps {
-                git 'https://github.com/LovingFox/boxfuse-sample-java-war-hello.git'
-                sh "mvn package"
                 sh "echo FROM nexus.rtru.tk:8123/hw11-app-template:${params.appTemplateVersion} > Dockerfile"
                 sh "echo RUN rm -rf /opt/tomcat/webapps/ROOT >> Dockerfile"
                 sh "echo COPY ./target/*.war /opt/tomcat/webapps/ROOT.war >> Dockerfile"
